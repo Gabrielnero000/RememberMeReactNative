@@ -17,7 +17,7 @@ const fetchProfileFail = (dispatch, error) => {
 	})
 }
 
-const fetchProfileSucces = (dispatch, profile) => {
+const fetchProfileSucces = (dispatch, profile) => {	
 	dispatch({
 		type: PROFILE_FETCH_SUCESS,
 		payload: profile
@@ -58,7 +58,6 @@ export const fetchProfile = () => {
 }
 
 export const onSaveChanges = (userpic, username, bio) => {
-
 	return dispatch => {
 
 		dispatch({ type: PROFILE_UPDATE })

@@ -21,32 +21,22 @@ import { fetchMemories } from '../../actions/MemoryActions';
 
 class Profile extends Component {
     state = {
-        username: '',
-        userpic: '',
-        bio: '',
-        memoriesCount: '',
-        fetching: false,
-        fetchError: '',
-        memoriesKeys: [],
-        memoriesArray: []
+        username: this.props.username,
+        userpic: this.props.userpic,
+        bio: this.props.bio,
+        memoriesCount: this.props.memoriesCount,
+        fetching: this.props.fetching,
+        fetchError: this.props.fetchError,
+        memoriesKeys: Object.keys(this.props.memories),
+        memoriesArray: Object.values(this.props.memories)
     }
 
     componentDidMount() {
         this.props.fetchProfile()
-
-        this.setState({
-            username: this.props.username,
-            userpic: this.props.userpic,
-            bio: this.props.bio,
-            memoriesCount: this.props.memoriesCount,
-            fetching: this.props.fetching,
-            fetchError: this.props.fetchError,
-            memoriesKeys: Object.keys(this.props.memories),
-            memoriesArray: Object.values(this.props.memories)
-        })
     }
 
     componentDidUpdate(prevProps) {
+
         if (prevProps !== this.props) {
             this.setState({
                 username: this.props.username,

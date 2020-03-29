@@ -35,9 +35,6 @@ class EditProfile extends Component {
             username: this.props.username,
             userpic: this.props.userpic,
             bio: this.props.bio,
-            uploading: this.props.uploading,
-            uploadError: this.props.uploadError,
-            url: this.props.url
         })
     }
 
@@ -52,7 +49,7 @@ class EditProfile extends Component {
 
         const { updating, uploading, url } = this.state
 
-        if (updating && !uploading && url){
+        if (updating && !uploading && url) {
             this.setState({
                 updating: false,
                 userpic: url
@@ -61,6 +58,10 @@ class EditProfile extends Component {
     }
 
     cancelEdit = () => {
+        if (this.state.userpic != this.props.userpic){
+            this.props.onSaveChanges(this.state.userpic, this.props.username, this.props.bio)
+        }
+
         Actions.pop()
     }
 
@@ -98,6 +99,17 @@ class EditProfile extends Component {
         this.props.onSaveChanges(userpic, username, bio)
     }
 
+    renderHeader = () => {
+        const { uploading, userpic } = this.state
+
+        if (uploading) {
+            return <Header title="Edit profile" onCancel={this.cancelEdit.bind(this)}/>
+
+        } else {
+            return <Header title="Edit profile" onNext={this.onSaveChanges.bind(this)} onCancel={this.cancelEdit.bind(this)} />
+        }
+    }
+
     renderUserpic = () => {
         const { userpic, uploading } = this.state
 
@@ -124,7 +136,7 @@ class EditProfile extends Component {
         const { username, bio } = this.state
         return (
             <View style={styles.container}>
-                <Header title="Edit profile" onNext={this.onSaveChanges.bind(this)} onCancel={this.cancelEdit.bind(this)} />
+                {this.renderHeader()}
                 <ScrollView>
                     {this.renderUserpic()}
                     <View style={{ flex: 1, alignItems: 'center' }}>

@@ -18,7 +18,7 @@ const initialState = {
 const profile = (state = initialState, action) => {
     switch (action.type) {
         case PROFILE_FETCH:
-            return { ...initialState, fetching: true }
+            return { ...state, fetching: true }
         case PROFILE_FETCH_FAIL: {
             console.error(action.reason)
             return { ...state, fetchError: 'Failed to fetch profile, try again later', fetching: false }
@@ -26,7 +26,7 @@ const profile = (state = initialState, action) => {
         case PROFILE_FETCH_SUCESS:
             return { ...state, profile: action.payload, fetching: false }
         case PROFILE_UPDATE:
-            return { ...initialState, updating: true };
+            return { ...state, updating: true };
         case PROFILE_UPDATE_FAIL: {
             console.error(action.reason)
             return { ...state, updateError: 'Failed to update profile, try again later', updating: false }
